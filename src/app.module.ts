@@ -24,7 +24,7 @@ import { AdminUsersModule } from './modules/admin-users/admin-users.module';
 import { AdminRolesModule } from './modules/admin-roles/admin-roles.module';
 import { AdminCategoriesModule } from './modules/admin-categories/admin-categories.module';
 import { AdminOptionsModule } from './modules/admin-options/admin-options.module';
-import { AdminInvoicesModule } from './modules/admin-invoices/admin-invoices.module';
+
 import { AdminUploadModule } from './modules/admin-upload/admin-upload.module';
 import { AdminPaymentsModule } from './modules/admin-payments/admin-payments.module';
 import { AdminReportsModule } from './modules/admin-reports/admin-reports.module';
@@ -78,7 +78,6 @@ import { AppService } from './app.service';
     AdminRolesModule,
     AdminCategoriesModule,
     AdminOptionsModule,
-    AdminInvoicesModule,
     AdminUploadModule,
     AdminPaymentsModule,
     AdminReportsModule,

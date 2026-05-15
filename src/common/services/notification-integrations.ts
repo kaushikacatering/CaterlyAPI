@@ -6,7 +6,6 @@
  */
 
 import { NotificationService } from './notification.service';
-import { InvoiceService } from './invoice.service';
 
 /**
  * Example: Customer Registration Notification
@@ -115,75 +114,6 @@ export async function sendForgotPasswordNotification(
 }
 
 /**
- * Example: Invoice Paid in Full Notification
- */
-export async function sendInvoicePaidFullNotification(
-  notificationService: NotificationService,
-  invoiceService: InvoiceService,
-  orderId: number,
-  customerEmail: string,
-  customerName: string,
-) {
-  // Generate PDF
-  const pdfBuffer = await invoiceService.generatePDFBuffer(orderId);
-
-  return await notificationService.sendNotification({
-    templateKey: 'invoice_paid_full',
-    recipientEmail: customerEmail,
-    recipientName: customerName,
-    variables: {
-      customer_name: customerName,
-      invoice_number: orderId.toString(),
-      amount_paid: '0.00', // Will be replaced with actual amount from order
-    },
-    attachments: [
-      {
-        filename: `invoice-${orderId}.pdf`,
-        content: pdfBuffer,
-        contentType: 'application/pdf',
-      },
-    ],
-  });
-}
-
-/**
- * Example: Invoice with Balance Notification
- */
-export async function sendInvoiceBalanceNotification(
-  notificationService: NotificationService,
-  invoiceService: InvoiceService,
-  orderId: number,
-  customerEmail: string,
-  customerName: string,
-  totalAmount: number,
-  amountPaid: number,
-  balance: number,
-) {
-  // Generate PDF
-  const pdfBuffer = await invoiceService.generatePDFBuffer(orderId);
-
-  return await notificationService.sendNotification({
-    templateKey: 'invoice_balance',
-    recipientEmail: customerEmail,
-    recipientName: customerName,
-    variables: {
-      customer_name: customerName,
-      invoice_number: orderId.toString(),
-      total_amount: totalAmount.toFixed(2),
-      amount_paid: amountPaid.toFixed(2),
-      balance: balance.toFixed(2),
-    },
-    attachments: [
-      {
-        filename: `invoice-${orderId}.pdf`,
-        content: pdfBuffer,
-        contentType: 'application/pdf',
-      },
-    ],
-  });
-}
-
-/**
  * Example: Subscription Notification
  */
 export async function sendSubscriptionNotification(
@@ -234,39 +164,6 @@ export async function sendQuoteNotification(
       total_amount: totalAmount.toFixed(2),
     },
     attachments,
-  });
-}
-
-/**
- * Example: Send Invoice Notification
- */
-export async function sendInvoiceNotification(
-  notificationService: NotificationService,
-  invoiceService: InvoiceService,
-  orderId: number,
-  customerEmail: string,
-  customerName: string,
-  totalAmount: number,
-) {
-  // Generate PDF
-  const pdfBuffer = await invoiceService.generatePDFBuffer(orderId);
-
-  return await notificationService.sendNotification({
-    templateKey: 'send_invoice',
-    recipientEmail: customerEmail,
-    recipientName: customerName,
-    variables: {
-      customer_name: customerName,
-      invoice_number: orderId.toString(),
-      total_amount: totalAmount.toFixed(2),
-    },
-    attachments: [
-      {
-        filename: `invoice-${orderId}.pdf`,
-        content: pdfBuffer,
-        contentType: 'application/pdf',
-      },
-    ],
   });
 }
 
